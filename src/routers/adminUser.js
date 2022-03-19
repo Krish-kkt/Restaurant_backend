@@ -82,7 +82,7 @@ router.post('/logoutall/admin', authAdmin.auth, async (req,res)=>{
 
     }catch(e){
 
-        res.status(500).send({Error: 'Server error. Unable to logout!'});
+        res.status(500).send({Error: 'Server down! Unable to logout.'});
     }
 })
 
