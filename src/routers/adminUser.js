@@ -29,9 +29,10 @@ router.post('/admin', async (req, res)=>{
     //     "adminType":""
     // }
 
-    const user = new AdminUser({...req.body});
+    
 
     try{
+        const user = new AdminUser({...req.body});
         await user.save();
         res.status(201).send({Msg: 'Created successfully'});
     }catch(e){
