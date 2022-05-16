@@ -22,7 +22,7 @@ router.post('/login/user', async(req, res)=>{
         if(req.body.mail===undefined) throw new Error();
         const otp= otpGenerator();
         const key= process.env.JWT_KEY+otp;
-        const otpToken= jwt.sign({mail: req.body.mail}, key , {expiresIn: 120000});
+        const otpToken= jwt.sign({mail: req.body.mail}, key , {expiresIn: 120});
 
         try{
             await sendOtp(req.body.mail, otp);
