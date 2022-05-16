@@ -15,7 +15,7 @@ const port= process.env.PORT;
 
 app.use(
     cors({
-        origin: ["http://localhost:3000","https://flamboyant-jepsen-c696cc.netlify.app", "https://restaurant-ce485.web.app/"],
+        origin: ["http://localhost:3000","https://flamboyant-jepsen-c696cc.netlify.app", "https://restaurant-ce485.web.app"],
         methods: ["GET","PATCH","POST","DELETE"],
         credentials: true,
     })
