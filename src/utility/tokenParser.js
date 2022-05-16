@@ -1,6 +1,6 @@
 const cookieParser = require('./cookieParser')
 
-const tokenParser = (req)=>{
+const loginTokenParser = (req)=>{
     // const token = req.header('Authorization').replace('Bearer ', '');
     // return token;
 
@@ -11,4 +11,17 @@ const tokenParser = (req)=>{
     return token;
 }
 
-module.exports= tokenParser;
+const otpTokenParser = (req)=>{
+
+    const cookies= cookieParser(req);
+    if(!cookies) return null;
+    const token=cookies.otp_token;
+    return token;
+}
+
+
+
+module.exports= {
+    loginTokenParser,
+    otpTokenParser
+}

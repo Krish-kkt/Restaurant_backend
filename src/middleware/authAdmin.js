@@ -5,7 +5,7 @@ const tokenParser = require('../utility/tokenParser');
 
 const auth = async (req, res, next)=>{
 
-    const token= tokenParser(req);
+    const token= tokenParser.loginTokenParser(req);
     let decode;
     let user;
 
@@ -31,7 +31,7 @@ const auth = async (req, res, next)=>{
 }
 
 const auth0 = async (req, res, next)=>{
-    const token= tokenParser(req);
+    const token= tokenParser.loginTokenParser(req);
     let decode;
     let user;
 

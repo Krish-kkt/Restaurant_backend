@@ -1,6 +1,7 @@
 const express = require('express');
 const AdminUser = require('../models/adminUser');
 const authAdmin = require('../middleware/authAdmin')
+const variables = require('../env/variables');
 
 
 const router = new express.Router();
@@ -51,7 +52,7 @@ router.post('/login/admin', async (req,res)=>{
         const user= await AdminUser.findByCredential(req.body.userCode, req.body.password);
         const token= await user.generateAuthToken();
 
-        res.cookie('user_session_id', token, { maxAge: 604800000, httpOnly: true, sameSite: 'none' , secure: true});
+        res.cookie('user_session_id', token, variables.cookieOption);
         res.status(200).send({userType: user.adminType});
     }catch(e){
         if(e.message==='Authentication failed!') return res.status(401).send({Error: 'Authentication failed.'});

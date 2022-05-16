@@ -1,24 +1,22 @@
 const bcryptjs = require('bcryptjs');
 const mongoose= require('mongoose');
-const jwt = requirie('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const { createDispatchHook } = require('react-redux');
 
 const userSchema = new mongoose.Schema({
-    name:{
+    mail:{
         type: String,
-        required: true,
-        trim: true
-    },
-    email:{
-        type: String,
-        unique: true,
         trim: true,
         lowercase: true,
     },
-    password:{
-        type:String,
-        required: true,
-        minlength: 7,
-    },
+    cart:[{
+        item:{
+            type: mongoose.Schema.Types.ObjectId,
+        },
+        cnt:{
+            type: Number,
+        }
+    }],
     tokens:[{
         token:{
             type: String,
@@ -32,8 +30,11 @@ userSchema.methods.toJSON = function (){
     const user =this;
     const userObject = user.toObject();
 
-    delete userObject.password;
+    
     delete userObject.tokens;
+    delete userObject.createdAt;
+    delete userObject.updatedAt;
+
 
     return userObject;
 
@@ -49,39 +50,11 @@ userSchema.methods.generateAuthToken = async function(){
 
 }
 
-
-
-userSchema.statics.findByCredential = async (email, password)=>{
-    const user= await User.findOne({email});
-
-    if(!user){
-        throw new Error('Unabe to login!');
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if(!isMatch){
-        throw new Error('Unable to login!');
-    }
-
-    return user;
-
-
-}
-
-userSchema.pre('save', async function (next){                                             //should be standard function
-    const user= this;                                                               //should be configured before using in mongoose.model
-    console.log('Just before saving!');
-
-    if(user.isModified('password')) {                                               //will only be executed for new user or password update 
-        user.password = await bcrypt.hash(user.password,8);
-        //console.log(user);
-    }
-
-    next();
-
-})
-
+// userSchema.pre('save', (next)=>{
+//     console.log(this);
+//     console.log('saved');
+//     next();
+// })
 
 const User= mongoose.model('User', userSchema);
 

@@ -6,6 +6,7 @@ require ('./src/db/mongoose');
 const adminUserRouter = require('./src/routers/adminUser');
 const menuRouter = require('./src/routers/menu');
 const categoryRouter = require('./src/routers/category');
+const userRouter= require('./src/routers/user');
 const cors= require('cors');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended: false}));         //for handlin/parsing js
 app.use(adminUserRouter);
 app.use(menuRouter);
 app.use(categoryRouter);
+app.use(userRouter);
 
 app.get('/' , (req, res)=>{
     res.send('Hi');
