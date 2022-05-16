@@ -21,12 +21,7 @@ const port= process.env.PORT;
 //     })
 // )
 
-app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    res.setHeader("Access-Control-Allow-Headers", "*");
-    next();
-});
+
 
 app.use(express.json());                                //for handling/parsing form data
 app.use(express.urlencoded({extended: false}));         //for handlin/parsing json data 
@@ -34,6 +29,16 @@ app.use(adminUserRouter);
 app.use(menuRouter);
 app.use(categoryRouter);
 app.use(userRouter);
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+  });
+
+// app.use(cors());
 
 app.get('/' , (req, res)=>{
     res.send('Hi');
