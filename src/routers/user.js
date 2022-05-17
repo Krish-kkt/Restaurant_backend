@@ -100,6 +100,7 @@ router.post('/user/cart', authUser, async(req, res)=>{
 
         let Msg=null;
         let newCartItems=[]
+        const temp= await getUserFilter(user);
 
         for (let i=0; i<cartItems.length; i++){
             // console.log(cartItems[i]._id);
